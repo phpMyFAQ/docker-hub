@@ -15,7 +15,7 @@ FROM composer:latest as composer
 WORKDIR /app
 
 #=== Get PMF source code ===
-ARG PMF_BRANCH="2.9"
+ARG PMF_BRANCH="3.0"
 RUN set -x \
  && git clone \
         --depth 1 \
