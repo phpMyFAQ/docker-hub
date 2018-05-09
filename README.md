@@ -22,7 +22,7 @@ _Running using volumes:_
 - **phpmyadmin**: a PHP tool to have a look on your database.
 
 _Running apache web server with PHP support:_
-- **phpmyfaq**: mounts the ressources folders in `/var/www/html/`.
+- **phpmyfaq**: mounts the ressources folders in `./volumes`.
 
 Then services will be available at following addresses:
 
