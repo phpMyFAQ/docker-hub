@@ -19,14 +19,9 @@ mkdir -vp $folders
 }
 
 #=== Check config files ===
-if [ ! -e "./config" ]; then
-  echo >&2 'WARN: missing config folder'
-  echo >&2 '  Did you forget to -v some_config_folder:/var/www/html/config ?'
-else
-  for _file in ../saved-config/*.php; do
-    [ ! -e ./config/$( basename $_file ) ] && cp -v $_file ./config/$( basename $_file )
-  done
-fi
+for _file in ../saved-config/*.php; do
+  [ ! -e ./config/$( basename $_file ) ] && cp -v $_file ./config/$( basename $_file )
+done
 
 ##=== Check database vars ===
 #=== DB host ===
