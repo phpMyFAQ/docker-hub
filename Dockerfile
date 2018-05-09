@@ -15,7 +15,7 @@ FROM composer:latest as composer
 WORKDIR /app
 
 #=== Get PMF source code ===
-ARG PMF_BRANCH="3.0"
+ARG PMF_BRANCH="2.9"
 RUN set -x \
  && git clone \
         --depth 1 \
@@ -115,7 +115,7 @@ RUN { \
  && echo "ServerName localhost" >> $APACHE_CONFDIR/apache2.conf
 
 #=== Apache security ===
-RUN {
+RUN { \
   echo 'ServerTokens Prod'; \
   echo 'ServerSignature Off'; \
   echo 'TraceEnable Off'; \
