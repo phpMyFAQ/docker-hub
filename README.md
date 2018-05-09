@@ -6,7 +6,7 @@ This image uses the multi-stage feature from docker. It's the one available on d
 
 Available arguments to build a new image:
 
-**PMF_BRANCH**: Specifie the Github branch to include in the release _(default: 3.0)_
+**PMF_BRANCH**: Specify the Github branch to include in the release _(default: 3.0)_
 
 ## To run
 
@@ -22,7 +22,7 @@ _Running using volumes:_
 - **phpmyadmin**: a PHP tool to have a look on your database.
 
 _Running apache web server with PHP support:_
-- **phpmyfaq**: mounts the ressources folders in `/var/www/html/`.
+- **phpmyfaq**: mounts the ressources folders in `./volumes`.
 
 Then services will be available at following addresses:
 
