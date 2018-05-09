@@ -18,6 +18,16 @@ mkdir -vp $folders
   chmod 775 $folders
 }
 
+#=== Check config files ===
+if [ ! -e "./config" ]; then
+  echo >&2 'WARN: missing config folder'
+  echo >&2 '  Did you forget to -v some_config_folder:/var/www/html/config ?'
+else
+  for _file in ../saved-config/*.php; do
+    [ ! -e ./config/$( basename $_file ) ] && cp -v $_file ./config/$( basename $_file )
+  done
+fi
+
 ##=== Check database vars ===
 #=== DB host ===
 if [ -z "$PMF_DB_HOST" -a ! -e "./config/database.php" ]; then
@@ -58,15 +68,16 @@ if [ -f "$APACHE_ENVVARS" ]; then
       sed -ri .htaccess \
         -e "s~RewriteBase /phpmyfaq/~RewriteBase /~"
       # Enabling permissions override
-      sed -ri ${APACHE_CONFDIR}/conf-available/*.conf \
-        -e "s~(.*AllowOverride).*~\1 All~g"
+      sed -ri ${APACHE_CONFDIR}/sites-available/*.conf \
+        -e "s~(.*AllowOverride).*~\1 All~"
   else
       rm .htaccess
       # Disabling permissions override
-      sed -ri ${APACHE_CONFDIR}/conf-available/*.conf \
-        -e "s~(.*AllowOverride).*~\1 none~g"
+      sed -ri ${APACHE_CONFDIR}/sites-available/*.conf \
+        -e "s~(.*AllowOverride).*~\1 none~"
   fi
 fi
+
 
 #=== Configure php ===
 {

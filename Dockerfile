@@ -98,6 +98,33 @@ RUN set -ex \
  && apt-get purge -y ${buildDeps} \
  && rm -rf /var/lib/apt/lists/*
 
+#=== Apache vhost ===
+RUN { \
+  echo '<VirtualHost *:80>'; \
+  echo 'DocumentRoot /var/www/html'; \
+  echo; \
+  echo '<Directory /var/www/html>'; \
+  echo '\tOptions -Indexes'; \
+  echo '\tAllowOverride all'; \
+  echo '</Directory>'; \
+  echo '</VirtualHost>'; \
+ } | tee "$APACHE_CONFDIR/sites-available/app.conf" \
+ && set -x \
+ && a2ensite app \
+ && a2dissite 000-default \
+ && echo "ServerName localhost" >> $APACHE_CONFDIR/apache2.conf
+
+#=== Apache security ===
+RUN {
+  echo 'ServerTokens Prod'; \
+  echo 'ServerSignature Off'; \
+  echo 'TraceEnable Off'; \
+  echo 'Header set X-Content-Type-Options: "nosniff"'; \
+  echo 'Header set X-Frame-Options: "sameorigin"'; \
+ } | tee $APACHE_CONFDIR/conf-available/security.conf \
+ && set -x \
+ && a2enconf security
+
 #=== php default ===
 ENV PMF_TIMEZONE="Europe/Berlin" \
     PMF_ENABLE_UPLOADS=On \
@@ -109,10 +136,11 @@ ENV PMF_TIMEZONE="Europe/Berlin" \
 #=== Add source code from previously built interstage ===
 COPY --from=yarn /app/phpmyfaq .
 
-#=== Ensure debug mode is disabled ===
+#=== Ensure debug mode is disabled and do some docker stuff ===
 RUN set -x \
  && sed -ri ./src/Bootstrap.php \
-      -e "s~define\('DEBUG', true\);~define\('DEBUG', false\);~"
+      -e "s~define\('DEBUG', true\);~define\('DEBUG', false\);~" \
+ && mv ./config ../saved-config
 
 #=== Set custom entrypoint ===
 COPY docker-entrypoint.sh /entrypoint

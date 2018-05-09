@@ -39,6 +39,7 @@ services:
       - ./volumes/phpmyfaq/attachments:/var/www/html/attachments
       - ./volumes/phpmyfaq/data:/var/www/html/data
       - ./volumes/phpmyfaq/images:/var/www/html/images
+      - ./volumes/phpmyfaq/config:/var/www/html/config
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     restart: always
