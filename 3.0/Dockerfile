@@ -33,11 +33,14 @@ RUN set -x \
 FROM node:latest as yarn
 WORKDIR /app
 
+#=== Get PMF source code from previous stage ===
 COPY --from=composer /app /app
 
+#=== Install dependencies ===
 RUN set -x \
  && npm install node-sass -g --unsafe-perm
 
+#=== Build assets ===
 RUN set -x \
  && yarn install \
  && yarn build
@@ -136,7 +139,7 @@ ENV PMF_TIMEZONE="Europe/Berlin" \
 #=== Add source code from previously built interstage ===
 COPY --from=yarn /app/phpmyfaq .
 
-#=== Ensure debug mode is disabled and do some docker stuff ===
+#=== Ensure debug mode is disabled and do some other stuff over the code ===
 RUN set -x \
  && sed -ri ./src/Bootstrap.php \
       -e "s~define\('DEBUG', true\);~define\('DEBUG', false\);~" \

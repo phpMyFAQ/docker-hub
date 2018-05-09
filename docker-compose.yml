@@ -15,7 +15,7 @@ services:
       - ./volumes/mariadb:/var/lib/mysql
   phpmyfaq:
     build:
-      context: .
+      context: ./3.0 # Change this to the folder of the desired version
       dockerfile: Dockerfile
     restart: always
     stdin_open: true
