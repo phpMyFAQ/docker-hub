@@ -16,7 +16,7 @@ services:
   phpmyfaq:
     build:
       context: .
-      dockerfile: Dockerfile-apache
+      dockerfile: Dockerfile
     restart: always
     stdin_open: true
     environment:
