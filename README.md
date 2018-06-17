@@ -8,6 +8,22 @@ Available arguments to build a new image:
 
 **PMF_BRANCH**: Specifie the Github branch to include in the release _(default: 3.0)_
 
+#How to use
+
+To build an image containing the current code in the specified branch:
+
+    # Example with the 3.0 branch
+    git clone https://github.com/phpMyFAQ/docker-hub.git && cd docker-hub
+    git checkout 3.0
+    docker build -t phpmyfaq .
+
+To build a specific tag of the PMF repo:
+
+    # Example with the 3.0.0-alpha.2 tag
+    git clone https://github.com/phpMyFAQ/docker-hub.git && cd docker-hub
+    git checkout 3.0
+    docker build -t phpmyfaq:3.0.0-alpha.2 --build-arg PMF_BRANCH=3.0.0-alpha.2 .
+
 ## To run
 
 Use docker compose:
