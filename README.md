@@ -6,7 +6,21 @@ This image uses the multi-stage feature from docker. It's the one available on d
 
 Available arguments to build a new image:
 
-**PMF_BRANCH**: Specify the Github branch to include in the release _(default: 3.0)_
+**PMF_BRANCH**: Specify the Github branch to include in the release _(default: 2.9)_
+
+To build an image containing the current code in the specified branch:
+
+    # Example with the 2.9 branch
+    git clone https://github.com/phpMyFAQ/docker-hub.git && cd docker-hub
+    git checkout 2.9
+    docker build -t phpmyfaq .
+
+To build a specific tag of the PMF repo:
+
+    # Example with the 2.9.10 tag
+    git clone https://github.com/phpMyFAQ/docker-hub.git && cd docker-hub
+    git checkout 2.9
+    docker build -t phpmyfaq:2.9.10 --build-arg PMF_BRANCH=2.9.10 .
 
 ## To run
 
