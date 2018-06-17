@@ -30,6 +30,8 @@ services:
       - PMF_MEMORY_LIMIT="64M"
       - PHP_LOG_ERRORS="On"
       - PHP_ERROR_REPORTING="E_ALL" # Production Value: E_ALL & ~E_DEPRECATED & ~E_STRICT
+      - PHP_POST_MAX_SIZE="64M"
+      - PHP_UPLOAD_MAX_FILESIZE="64M"
     links:
       - mariadb:db
       - elasticsearch
