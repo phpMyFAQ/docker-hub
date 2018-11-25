@@ -42,7 +42,7 @@ RUN set -x \
 
 #=== Build assets ===
 RUN set -x \
- && yarn install \
+ && yarn install --network-timeout 1000000 \
  && yarn build
 
 #################################
