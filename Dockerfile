@@ -1,5 +1,5 @@
 #
-# This image uses 2 interstage and an php:7.1-apache final stage
+# This image uses 2 interstage and an php:7.3-apache final stage
 #
 # Interstages are:
 #   - composer
@@ -48,7 +48,7 @@ RUN set -x \
 #################################
 #=== Final stage with payload ===
 #################################
-FROM php:7.1-apache
+FROM php:7.3-apache
 
 #=== Install gd php dependencie ===
 RUN set -x \
